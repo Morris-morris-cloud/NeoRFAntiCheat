@@ -320,13 +320,10 @@ public class AcConfig {
     public static class Whitelist {
         /** 完全豁免的 UUID 列表 */
         private List<String> exemptUuids = new ArrayList<>();
-        /** 豁免权限节点前缀，拥有 neorf.exempt.<check> 即豁免 */
-        private String exemptPermissionPrefix = "neorf.exempt";
         /** 区域白名单 */
         private List<Region> regions = new ArrayList<>();
 
         public List<String> getExemptUuids() { return exemptUuids; }
-        public String getExemptPermissionPrefix() { return exemptPermissionPrefix; }
         public List<Region> getRegions() { return regions; }
     }
 

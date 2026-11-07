@@ -122,8 +122,6 @@
   "whitelist": {
     // 完全豁免的 UUID 列表
     "exemptUuids": [],
-    // 豁免指定检测的权限节点前缀（拥有权限即豁免对应 check）
-    "exemptPermissionPrefix": "neorf.exempt",
     // 区域白名单：主城等区域内关闭指定检测
     "regions": [
       // {
