@@ -122,6 +122,7 @@ public class CheckRegistry {
 
     public void onPlayerQuit(java.util.UUID uuid) {
         killAuraCheck.onQuit(uuid);
+        aimCheck.onQuit(uuid);
         packetFloodCheck.onQuit(uuid);
     }
 }

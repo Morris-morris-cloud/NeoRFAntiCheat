@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.neorf.anticheat.NeoRFAntiCheatLogicTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2026-11-07T01:08:02.216Z" hostname="MacBook-Pro.local" time="0.08">
+<testsuite name="com.neorf.anticheat.NeoRFAntiCheatLogicTest" tests="9" skipped="0" failures="0" errors="0" timestamp="2026-11-07T01:50:33.578Z" hostname="MacBook-Pro.local" time="0.087">
   <properties/>
-  <testcase name="nameBansPersistAcrossStorageReload()" classname="com.neorf.anticheat.NeoRFAntiCheatLogicTest" time="0.041"/>
-  <testcase name="mathUtilTest()" classname="com.neorf.anticheat.NeoRFAntiCheatLogicTest" time="0.016"/>
-  <testcase name="angleDeltaTest()" classname="com.neorf.anticheat.NeoRFAntiCheatLogicTest" time="0.001"/>
-  <testcase name="falsePositiveDoesNotCount()" classname="com.neorf.anticheat.NeoRFAntiCheatLogicTest" time="0.001"/>
-  <testcase name="banLadderLogic()" classname="com.neorf.anticheat.NeoRFAntiCheatLogicTest" time="0.003"/>
+  <testcase name="nameBansPersistAcrossStorageReload()" classname="com.neorf.anticheat.NeoRFAntiCheatLogicTest" time="0.053"/>
+  <testcase name="mathUtilTest()" classname="com.neorf.anticheat.NeoRFAntiCheatLogicTest" time="0.014"/>
+  <testcase name="angleDeltaTest()" classname="com.neorf.anticheat.NeoRFAntiCheatLogicTest" time="0.0"/>
+  <testcase name="packetFloodRequiresSustainedRollingWindowOverLimit()" classname="com.neorf.anticheat.NeoRFAntiCheatLogicTest" time="0.002"/>
+  <testcase name="falsePositiveDoesNotCount()" classname="com.neorf.anticheat.NeoRFAntiCheatLogicTest" time="0.002"/>
+  <testcase name="banLadderLogic()" classname="com.neorf.anticheat.NeoRFAntiCheatLogicTest" time="0.002"/>
   <testcase name="reportCooldownLogic()" classname="com.neorf.anticheat.NeoRFAntiCheatLogicTest" time="0.001"/>
-  <testcase name="configTemplateIsValidJson()" classname="com.neorf.anticheat.NeoRFAntiCheatLogicTest" time="0.005"/>
+  <testcase name="configTemplateIsValidJson()" classname="com.neorf.anticheat.NeoRFAntiCheatLogicTest" time="0.002"/>
+  <testcase name="attackRateWindowCountsFiftyServerAttackPacketsPerSecond()" classname="com.neorf.anticheat.NeoRFAntiCheatLogicTest" time="0.0"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

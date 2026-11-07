@@ -18,6 +18,8 @@ package com.neorf.anticheat;
 import com.google.gson.JsonParser;
 import com.neorf.anticheat.punishment.NameBanRecord;
 import com.neorf.anticheat.punishment.BanStatus;
+import com.neorf.anticheat.check.combat.AttackRateWindow;
+import com.neorf.anticheat.check.packet.PacketFloodWindow;
 import com.neorf.anticheat.storage.JsonStorage;
 import com.neorf.anticheat.util.MathUtil;
 import com.neorf.anticheat.util.TimeUtil;
@@ -109,6 +111,26 @@ public class NeoRFAntiCheatLogicTest {
         assertEquals("Notch", loaded.getName());
         assertEquals("manual-ban", loaded.getReason());
         assertEquals(200L, loaded.getBanEndMs());
+    }
+
+    @Test
+    void attackRateWindowCountsFiftyServerAttackPacketsPerSecond() {
+        AttackRateWindow window = new AttackRateWindow();
+        int count = 0;
+        for (int attack = 0; attack < 50; attack++) {
+            count = window.recordAndCount(attack * 20L, 1000L);
+        }
+        assertEquals(50, count);
+    }
+
+    @Test
+    void packetFloodRequiresSustainedRollingWindowOverLimit() {
+        PacketFloodWindow window = new PacketFloodWindow();
+        boolean flagged = false;
+        for (long now = 0; now <= 4000; now += 20) {
+            flagged |= window.record(now, 20, 2).shouldFlag();
+        }
+        assertTrue(flagged, "超过阈值并持续 2 秒后应标记");
     }
 
     /** MathUtil：水平距离与三维速度 */

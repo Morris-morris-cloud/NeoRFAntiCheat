@@ -32,7 +32,7 @@ import static net.minecraft.commands.Commands.literal;
 /**
  * NeoRFRootCommand —— /NeoRF 根指令
  * <p>
- * 组织 5 个子指令：
+ * 组织管理员子指令：
  * <ul>
  *   <li>{@code /NeoRF baninfo <player/uuid>} 查看封禁历史与有效计数；</li>
  *   <li>{@code /NeoRF unban <uuid> [falsepositive]} 解除封禁；</li>

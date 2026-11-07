@@ -96,7 +96,7 @@
   "packet": {
     "flood": {
       "enabled": true,
-      // 单玩家每秒发包上限，超过则限流+标记
+      // 单玩家最近 1 秒入站包上限，持续超限后封禁
       "maxPacketsPerSecond": 1500,
       // 连续超限多少秒触发标记
       "sustainSeconds": 5

@@ -48,12 +48,11 @@
   "combat": {
     "killaura": {
       "enabled": true,
-      // 攻击间隔(ms)低于该值且高度机械(方差极小)记为高频/击杀光环
-      "minAttackIntervalMs": 180,
-      // 窗口内允许的最大攻击次数（基于 26.1 攻击冷却换算）
-      "maxAttacksPerWindow": 8,
+      // 服务端实收攻击次数的滚动窗口上限（CPS）
+      "maxCps": 20,
       "windowMs": 1000,
-      "violationsToBan": 25
+      // 持续超限时每窗口记一次，达到此次数自动封禁
+      "cpsViolationsToBan": 5
     },
     "reach": {
       "enabled": true,
@@ -97,7 +96,7 @@
   "packet": {
     "flood": {
       "enabled": true,
-      // 单玩家每秒发包上限，超过则限流+标记
+      // 单玩家最近 1 秒入站包上限，持续超限后封禁
       "maxPacketsPerSecond": 1500,
       // 连续超限多少秒触发标记
       "sustainSeconds": 5

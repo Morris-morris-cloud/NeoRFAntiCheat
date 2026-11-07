@@ -97,4 +97,8 @@ public class AimCheck extends Check {
         hist.addLast(new long[]{(long) (p.getYRot() * 1000), (long) (p.getXRot() * 1000), 0, now});
         while (hist.size() > 8) hist.pollFirst();
     }
+
+    public void onQuit(UUID uuid) {
+        aimHistory.remove(uuid);
+    }
 }
