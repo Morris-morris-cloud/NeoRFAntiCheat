@@ -165,7 +165,7 @@ public class AcConfig {
         private int maxCps = 20;
         private long averageWindowMs = 2000;
         /** Sustained CPS violations needed to trigger a ban */
-        private int cpsViolationsToBan = 5;
+        private int cpsViolationsToBan = 3;
         public boolean isEnabled() { return enabled; }
         public int getMaxCps() { return maxCps; }
         public long getAverageWindowMs() { return averageWindowMs; }
