@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.neorf.anticheat.NeoRFAntiCheatLogicTest" tests="10" skipped="0" failures="0" errors="0" timestamp="2026-11-07T02:43:05.806Z" hostname="MacBook-Pro.local" time="0.165">
+<testsuite name="com.neorf.anticheat.NeoRFAntiCheatLogicTest" tests="10" skipped="0" failures="0" errors="0" timestamp="2026-11-07T02:59:22.176Z" hostname="MacBook-Pro.local" time="0.14">
   <properties/>
-  <testcase name="nameBansPersistAcrossStorageReload()" classname="com.neorf.anticheat.NeoRFAntiCheatLogicTest" time="0.1"/>
-  <testcase name="fiveFrameSpeedUsesTheMatchingFrameTime()" classname="com.neorf.anticheat.NeoRFAntiCheatLogicTest" time="0.027"/>
-  <testcase name="mathUtilTest()" classname="com.neorf.anticheat.NeoRFAntiCheatLogicTest" time="0.001"/>
-  <testcase name="angleDeltaTest()" classname="com.neorf.anticheat.NeoRFAntiCheatLogicTest" time="0.001"/>
-  <testcase name="packetFloodRequiresSustainedRollingWindowOverLimit()" classname="com.neorf.anticheat.NeoRFAntiCheatLogicTest" time="0.002"/>
-  <testcase name="falsePositiveDoesNotCount()" classname="com.neorf.anticheat.NeoRFAntiCheatLogicTest" time="0.002"/>
-  <testcase name="banLadderLogic()" classname="com.neorf.anticheat.NeoRFAntiCheatLogicTest" time="0.005"/>
+  <testcase name="nameBansPersistAcrossStorageReload()" classname="com.neorf.anticheat.NeoRFAntiCheatLogicTest" time="0.07"/>
+  <testcase name="fiveFrameSpeedUsesTheMatchingFrameTime()" classname="com.neorf.anticheat.NeoRFAntiCheatLogicTest" time="0.026"/>
+  <testcase name="mathUtilTest()" classname="com.neorf.anticheat.NeoRFAntiCheatLogicTest" time="0.002"/>
+  <testcase name="angleDeltaTest()" classname="com.neorf.anticheat.NeoRFAntiCheatLogicTest" time="0.002"/>
+  <testcase name="packetFloodRequiresSustainedRollingWindowOverLimit()" classname="com.neorf.anticheat.NeoRFAntiCheatLogicTest" time="0.003"/>
+  <testcase name="falsePositiveDoesNotCount()" classname="com.neorf.anticheat.NeoRFAntiCheatLogicTest" time="0.003"/>
+  <testcase name="banLadderLogic()" classname="com.neorf.anticheat.NeoRFAntiCheatLogicTest" time="0.004"/>
   <testcase name="reportCooldownLogic()" classname="com.neorf.anticheat.NeoRFAntiCheatLogicTest" time="0.002"/>
-  <testcase name="configTemplateIsValidJson()" classname="com.neorf.anticheat.NeoRFAntiCheatLogicTest" time="0.005"/>
+  <testcase name="configTemplateIsValidJson()" classname="com.neorf.anticheat.NeoRFAntiCheatLogicTest" time="0.006"/>
   <testcase name="attackRateWindowMeasuresFiftyCpsOverTwoSeconds()" classname="com.neorf.anticheat.NeoRFAntiCheatLogicTest" time="0.002"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
