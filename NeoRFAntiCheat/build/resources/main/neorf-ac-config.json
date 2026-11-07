@@ -1,0 +1,148 @@
+{
+  // ============================================================
+  // NeoRFAntiCheat 默认配置模板
+  // 首次启动时会复制到 config/neorf-ac-config.json，之后以该文件为准。
+  // 修改后可用 /neorf reload 热重载。
+  // 时间单位：毫秒(ms)；坐标单位：方块(block)；速度单位：方块/秒(b/s)
+  // ============================================================
+
+  "general": {
+    // 是否启用反作弊总开关
+    "enabled": true,
+    // 检测 tick 频率：每 N 个服务端 tick 跑一次检测（1 = 每 tick）
+    "checkIntervalTicks": 1,
+    // TPS 自适应：服务端 MSPT 超过该值(ms)时自动放宽阈值
+    "tpsAdaptiveMsptThreshold": 50,
+    // 服务器 tps 低于该值时跳过瞬移/速度等对时序敏感的检测
+    "minTpsForTimingChecks": 15.0
+  },
+
+  "movement": {
+    "fly": {
+      "enabled": true,
+      // 持续空中(无合法支持)达到该毫秒数开始累计违规
+      "minSuspiciousAirMs": 3000,
+      // 达到该违规点数触发封禁判定
+      "violationsToBan": 20
+    },
+    "speed": {
+      "enabled": true,
+      // 水平速度超出理论最大值该比例(0.0~1.0)记为违规
+      "overSpeedRatio": 0.30,
+      "violationsToBan": 20
+    },
+    "noclip": {
+      "enabled": true,
+      // 碰撞箱与实心方块相交持续毫秒数
+      "minClipMs": 500,
+      "violationsToBan": 15
+    },
+    "teleport": {
+      "enabled": true,
+      // 移动速度超过原版极限速度该倍数判为瞬移
+      "limitMultiplier": 2.0,
+      "violationsToBan": 10
+    }
+  },
+
+  "combat": {
+    "killaura": {
+      "enabled": true,
+      // 攻击间隔(ms)低于该值且高度机械(方差极小)记为高频/击杀光环
+      "minAttackIntervalMs": 180,
+      // 窗口内允许的最大攻击次数（基于 26.1 攻击冷却换算）
+      "maxAttacksPerWindow": 8,
+      "windowMs": 1000,
+      "violationsToBan": 25
+    },
+    "reach": {
+      "enabled": true,
+      // 近战攻击距离超过原版上限(约3.0)该附加值判为超距
+      "maxReach": 3.2,
+      "violationsToBan": 15
+    },
+    "aim": {
+      "enabled": true,
+      // 单 tick 内视角突变角度上限
+      "maxYawDeltaPerTick": 45.0,
+      // 视角平滑锁向实体的相关性阈值
+      "lockCorrelationThreshold": 0.9,
+      "violationsToBan": 20
+    }
+  },
+
+  "action": {
+    "nuker": {
+      "enabled": true,
+      // 窗口内最大合法破坏方块数
+      "maxBlocksPerWindow": 12,
+      "windowMs": 1000,
+      "violationsToBan": 15
+    },
+    "autoInteract": {
+      "enabled": true,
+      // 放置/右键间隔(ms)低于该值判为自动交互
+      "minIntervalMs": 120,
+      "violationsToBan": 20
+    },
+    "item": {
+      "enabled": true,
+      // 非法物品：超过原版上限的附魔等级阈值
+      "maxEnchantLevel": 255,
+      // 属性 modifier 数量上限
+      "maxAttributeModifiers": 6
+    }
+  },
+
+  "packet": {
+    "flood": {
+      "enabled": true,
+      // 单玩家每秒发包上限，超过则限流+标记
+      "maxPacketsPerSecond": 1500,
+      // 连续超限多少秒触发标记
+      "sustainSeconds": 5
+    }
+  },
+
+  "report": {
+    // 举报人全局冷却：提交成功后该毫秒内不可再次 /report（重启清空）
+    "reporterCooldownMs": 300000,
+    // 强制查端超时毫秒
+    "clientCheckTimeoutMs": 5000,
+    // 是否启用强制查端（请求 ModList）
+    "forceClientCheck": true
+  },
+
+  "punishment": {
+    // 首次有效封禁时长毫秒（15天）
+    "firstBanMs": 1296000000,
+    // 管理指令 unban 普通解除是否计入 validBanCount
+    "manualUnbanCounts": false
+  },
+
+  "whitelist": {
+    // 完全豁免的 UUID 列表
+    "exemptUuids": [],
+    // 豁免指定检测的权限节点前缀（拥有权限即豁免对应 check）
+    "exemptPermissionPrefix": "neorf.exempt",
+    // 区域白名单：主城等区域内关闭指定检测
+    "regions": [
+      // {
+      //   "name": "spawn",
+      //   "world": "minecraft:overworld",
+      //   "minX": -100, "minY": -64, "minZ": -100,
+      //   "maxX": 100,  "maxY": 320, "maxZ": 100,
+      //   "disabledChecks": ["fly", "speed"]
+      // }
+    ]
+  },
+
+  "checks": {
+    // 违规模组黑名单：/report 强制查端命中即封禁（正则/精确，modId 小写）
+    "modBlacklist": [
+      "injector",
+      "advanced_antiautobuild",
+      "wurst"
+    ]
+  }
+}

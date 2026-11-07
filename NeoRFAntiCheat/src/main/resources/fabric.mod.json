@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "id": "neorf-anticheat",
+  "version": "${version}",
+  "name": "NeoRF AntiCheat",
+  "description": "服务端侧反作弊模组：原生运动/战斗/交互/发包检测 + /report 强制查端(Fabric ModList) + 阶梯封禁。",
+  "authors": ["NeoRF"],
+  "contact": {},
+  "license": "ARR",
+  "environment": "server",
+  "entrypoints": {
+    "main": [
+      "com.neorf.anticheat.NeoRFAntiCheat"
+    ]
+  },
+  "mixins": [
+    "neorf-anticheat.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.20.1",
+    "fabric-api": "*",
+    "minecraft": "~26.1",
+    "java": ">=25"
+  },
+  "suggests": {}
+}

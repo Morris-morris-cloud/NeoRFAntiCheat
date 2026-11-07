@@ -1,0 +1,29 @@
+/*
+ * settings.gradle —— Gradle 多项目设置
+ *
+ * NeoRFAntiCheat 是一个单模块项目，这里仅声明插件仓库与根项目名。
+ * 版本号（minecraft_version 等）集中在 gradle.properties 中统一维护，
+ * 便于升级游戏版本时只改一处。
+ */
+
+pluginManagement {
+    repositories {
+        // 中国镜像优先：插件与依赖减少国外拉取失败
+        maven {
+            name = 'Aliyun Public'
+            url = 'https://maven.aliyun.com/repository/public/'
+        }
+        maven {
+            name = 'Aliyun Gradle Plugin'
+            url = 'https://maven.aliyun.com/repository/gradle-plugin/'
+        }
+        maven {
+            name = 'Fabric'
+            url = 'https://maven.fabricmc.net/'
+        }
+        gradlePluginPortal()
+    }
+}
+
+// 根项目名称统一为 NeoRF 品牌
+rootProject.name = 'NeoRFAntiCheat'
