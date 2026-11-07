@@ -114,13 +114,14 @@ public class NeoRFAntiCheatLogicTest {
     }
 
     @Test
-    void attackRateWindowCountsFiftyServerAttackPacketsPerSecond() {
+    void attackRateWindowMeasuresFiftyCpsOverTwoSeconds() {
         AttackRateWindow window = new AttackRateWindow();
         int count = 0;
-        for (int attack = 0; attack < 50; attack++) {
-            count = window.recordAndCount(attack * 20L, 1000L);
+        for (int attack = 0; attack < 100; attack++) {
+            count = window.recordAndCount(attack * 20L, 2000L);
         }
-        assertEquals(50, count);
+        assertEquals(100, count);
+        assertEquals(50.0, AttackRateWindow.averageCps(count, 2000L), 1e-6);
     }
 
     @Test

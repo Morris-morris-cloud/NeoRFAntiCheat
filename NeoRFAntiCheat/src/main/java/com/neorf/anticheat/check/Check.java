@@ -101,6 +101,10 @@ public abstract class Check {
         }
     }
 
+    protected void clearViolations(ServerPlayer player) {
+        mod.getTickDataManager().get(player.getUUID()).resetViolations(id());
+    }
+
     /** 该检测触发封禁所需的违规点阈值（由子类从配置读取） */
     protected abstract int violationsToBan();
 

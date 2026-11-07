@@ -50,9 +50,9 @@
       "enabled": true,
       // 服务端实收攻击次数的滚动窗口上限（CPS）
       "maxCps": 20,
-      "windowMs": 1000,
+      "averageWindowMs": 2000,
       // 持续超限时每窗口记一次，达到此次数自动封禁
-      "cpsViolationsToBan": 5
+      "cpsViolationsToBan": 3
     },
     "reach": {
       "enabled": true,

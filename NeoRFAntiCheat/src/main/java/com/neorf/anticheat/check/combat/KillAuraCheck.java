@@ -38,7 +38,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class KillAuraCheck extends Check {
 
      private final Map<UUID, AttackRateWindow> attackWindows = new ConcurrentHashMap<>();
-     private final Map<UUID, Long> lastCpsViolationAt = new ConcurrentHashMap<>();
+    private final Map<UUID, Long> lastCpsSampleAt = new ConcurrentHashMap<>();
 
     public KillAuraCheck(NeoRFAntiCheat mod) {
         super(mod, "KillAura", "combat");
@@ -65,21 +65,28 @@ public class KillAuraCheck extends Check {
 
         AcConfig.KillAura cfg = mod.getConfigManager().get().getCombat().getKillaura();
         long now = System.nanoTime() / 1_000_000L;
-        int cps = attackWindows.computeIfAbsent(p.getUUID(), id -> new AttackRateWindow())
-                .recordAndCount(now, cfg.getWindowMs());
+        UUID uuid = p.getUUID();
+        long windowMs = cfg.getAverageWindowMs();
+        int attackCount = attackWindows.computeIfAbsent(uuid, id -> new AttackRateWindow())
+            .recordAndCount(now, windowMs);
+        double averageCps = AttackRateWindow.averageCps(attackCount, windowMs);
 
-        if (cps > cfg.getMaxCps()) {
-            long lastFlag = lastCpsViolationAt.getOrDefault(p.getUUID(), Long.MIN_VALUE);
-            if (lastFlag == Long.MIN_VALUE || now - lastFlag >= cfg.getWindowMs()) {
-                lastCpsViolationAt.put(p.getUUID(), now);
-                flagAtThreshold(p, 1, "服务端检测到 " + cps + " CPS，限制为 " + cfg.getMaxCps(),
-                        cfg.getCpsViolationsToBan());
-            }
+        if (averageCps <= cfg.getMaxCps()) {
+            lastCpsSampleAt.remove(uuid);
+            clearViolations(p);
+            return;
+        }
+
+        long lastSample = lastCpsSampleAt.getOrDefault(uuid, Long.MIN_VALUE);
+        if (lastSample == Long.MIN_VALUE || now - lastSample >= windowMs) {
+            lastCpsSampleAt.put(uuid, now);
+            flagAtThreshold(p, 1, String.format("2 秒平均 %.1f CPS，限制为 %d CPS",
+                averageCps, cfg.getMaxCps()), cfg.getCpsViolationsToBan());
         }
     }
 
     public void onQuit(UUID uuid) {
         attackWindows.remove(uuid);
-        lastCpsViolationAt.remove(uuid);
+        lastCpsSampleAt.remove(uuid);
     }
 }

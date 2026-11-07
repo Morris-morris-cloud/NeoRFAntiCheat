@@ -15,4 +15,8 @@ public final class AttackRateWindow {
         timestamps.addLast(nowMs);
         return timestamps.size();
     }
+
+    public static double averageCps(int attacks, long windowMs) {
+        return attacks * 1000.0 / Math.max(1L, windowMs);
+    }
 }

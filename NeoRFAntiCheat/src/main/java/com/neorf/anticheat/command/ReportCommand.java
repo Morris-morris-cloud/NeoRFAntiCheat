@@ -33,8 +33,8 @@ import static com.mojang.brigadier.arguments.StringArgumentType.greedyString;
  * <p>
  * 语法：{@code /report <target> [remark]}
  * <ul>
- *   <li>所有玩家可用（无权限要求），受全局冷却限制；</li>
- *   <li>解析指令 → 校验举报人冷却 → 入库举报记录 → 强制查端。</li>
+ *   <li>玩家可用（受全局冷却限制），服务器控制台也可直接查端且不受冷却限制；</li>
+ *   <li>解析指令 → 入库举报记录 → 强制查端。</li>
  * </ul>
  */
 public class ReportCommand {
@@ -59,19 +59,16 @@ public class ReportCommand {
     /** 执行举报 */
     private static int execute(NeoRFAntiCheat mod, CommandSourceStack src,
                                ServerPlayer target, String remark) {
-        // 必须是玩家执行
-        if (!(src.getEntity() instanceof ServerPlayer reporter)) {
-            src.sendFailure(net.minecraft.network.chat.Component.literal("仅玩家可执行 /report"));
-            return 0;
-        }
-        // 不允许举报自己
-        if (reporter.getUUID().equals(target.getUUID())) {
+        ServerPlayer reporter = src.getEntity() instanceof ServerPlayer player ? player : null;
+        if (reporter != null && reporter.getUUID().equals(target.getUUID())) {
             src.sendFailure(net.minecraft.network.chat.Component.literal("不能举报自己"));
             return 0;
         }
 
         ReportManager rm = mod.getReportManager();
-        String result = rm.submitReport(reporter, target, remark);
+        String result = reporter == null
+                ? rm.submitServerReport(target, remark)
+                : rm.submitReport(reporter, target, remark);
         src.sendSuccess(() -> net.minecraft.network.chat.Component.literal(result), false);
         return 1;
     }

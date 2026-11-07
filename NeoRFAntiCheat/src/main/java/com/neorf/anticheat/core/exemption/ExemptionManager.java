@@ -18,7 +18,6 @@ package com.neorf.anticheat.core.exemption;
 import com.neorf.anticheat.config.AcConfig;
 import com.neorf.anticheat.config.ConfigManager;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.server.permissions.Permissions;
 import net.minecraft.core.BlockPos;
 
 import java.util.HashSet;
@@ -66,20 +65,6 @@ public class ExemptionManager {
     }
 
     /**
-     * 玩家是否被权限豁免指定检测。
-     *
-     * @param checkName 检测名（如 "fly"），权限节点 neorf.exempt.fly
-     */
-    public boolean isPermissionExempt(ServerPlayer player, String checkName) {
-        // 简化实现：未引入 fabric-permissions-api 时，用 op 权限等级近似——
-        // 权限等级 >= 1（可执行命令的 op）视为豁免全部检测。
-        // 若需按节点精细控制（neorf.exempt.fly 仅豁免飞行），
-        // 可引入 Fabric Permissions API 并改为：
-        //   return PermissionAPI.checkPermission(player, prefix + "." + checkName);
-        return player.permissions().hasPermission(Permissions.COMMANDS_MODERATOR);
-    }
-
-    /**
      * 玩家在指定位置、指定检测是否被区域白名单豁免。
      */
     public boolean isRegionExempt(ServerPlayer player, String checkName) {
@@ -104,7 +89,6 @@ public class ExemptionManager {
      */
     public boolean isExempt(ServerPlayer player, String checkName) {
         if (isFullyExempt(player)) return true;
-        if (isPermissionExempt(player, checkName)) return true;
         return isRegionExempt(player, checkName);
     }
 }

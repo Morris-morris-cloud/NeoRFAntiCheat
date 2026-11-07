@@ -84,21 +84,31 @@ public class ReportManager {
      * @return 给举报人的反馈文案
      */
     public String submitReport(ServerPlayer reporter, ServerPlayer target, String remark) {
-        UUID ruuid = reporter.getUUID();
+        return createReport(reporter, target, remark);
+    }
 
-        // 1) 冷却校验
+    /** Server console / command-block查端不设置举报人 UUID，也不应用玩家冷却。 */
+    public String submitServerReport(ServerPlayer target, String remark) {
+        return createReport(null, target, remark);
+    }
+
+    private String createReport(ServerPlayer reporter, ServerPlayer target, String remark) {
+        UUID reporterUuid = reporter == null ? null : reporter.getUUID();
         long now = System.currentTimeMillis();
-        Long until = reporterCooldownUntil.get(ruuid);
-        if (until != null && now < until) {
-            long remainSec = (until - now) / 1000;
-            return "举报冷却中，请 " + remainSec + " 秒后再试。";
+
+        if (reporterUuid != null) {
+            Long until = reporterCooldownUntil.get(reporterUuid);
+            if (until != null && now < until) {
+                long remainSec = (until - now) / 1000;
+                return "举报冷却中，请 " + remainSec + " 秒后再试。";
+            }
         }
 
         // 2) 入库举报记录
         ReportRecord rec = new ReportRecord();
         rec.setId(UUID.randomUUID().toString().substring(0, 8));
-        rec.setReporterUuid(ruuid);
-        rec.setReporterName(reporter.getGameProfile().name());
+        rec.setReporterUuid(reporterUuid);
+        rec.setReporterName(reporter == null ? "服务器控制台" : reporter.getGameProfile().name());
         rec.setTargetUuid(target.getUUID());
         rec.setTargetName(target.getGameProfile().name());
         rec.setRemark(remark == null ? "" : remark);
@@ -106,7 +116,9 @@ public class ReportManager {
         reports.add(rec);
 
         // 3) 设置举报人冷却截止时间
-        reporterCooldownUntil.put(ruuid, now + configManager.get().getReport().getReporterCooldownMs());
+        if (reporterUuid != null) {
+            reporterCooldownUntil.put(reporterUuid, now + configManager.get().getReport().getReporterCooldownMs());
+        }
 
         // 4) 强制查端
         if (configManager.get().getReport().isForceClientCheck()) {

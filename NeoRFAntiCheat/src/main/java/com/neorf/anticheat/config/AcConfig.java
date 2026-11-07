@@ -163,12 +163,12 @@ public class AcConfig {
         private boolean enabled = true;
         /** Rolling-window attack packet limit */
         private int maxCps = 20;
-        private long windowMs = 1000;
+        private long averageWindowMs = 2000;
         /** Sustained CPS violations needed to trigger a ban */
         private int cpsViolationsToBan = 5;
         public boolean isEnabled() { return enabled; }
         public int getMaxCps() { return maxCps; }
-        public long getWindowMs() { return windowMs; }
+        public long getAverageWindowMs() { return averageWindowMs; }
         public int getCpsViolationsToBan() { return cpsViolationsToBan; }
     }
 

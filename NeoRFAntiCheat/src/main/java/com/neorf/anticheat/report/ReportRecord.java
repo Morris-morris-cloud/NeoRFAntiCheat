@@ -29,7 +29,7 @@ public class ReportRecord {
 
     /** 举报单唯一 id */
     private String id;
-    /** 举报人 UUID */
+    /** 举报人 UUID；服务器控制台举报时为空 */
     private UUID reporterUuid;
     /** 举报人名称 */
     private String reporterName;
