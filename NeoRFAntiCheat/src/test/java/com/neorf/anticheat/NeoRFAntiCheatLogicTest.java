@@ -20,6 +20,7 @@ import com.neorf.anticheat.punishment.NameBanRecord;
 import com.neorf.anticheat.punishment.BanStatus;
 import com.neorf.anticheat.check.combat.AttackRateWindow;
 import com.neorf.anticheat.check.packet.PacketFloodWindow;
+import com.neorf.anticheat.core.tick.PlayerTickDataManager;
 import com.neorf.anticheat.storage.JsonStorage;
 import com.neorf.anticheat.util.MathUtil;
 import com.neorf.anticheat.util.TimeUtil;
@@ -122,6 +123,21 @@ public class NeoRFAntiCheatLogicTest {
         }
         assertEquals(100, count);
         assertEquals(50.0, AttackRateWindow.averageCps(count, 2000L), 1e-6);
+    }
+
+    @Test
+    void fiveFrameSpeedUsesTheMatchingFrameTime() {
+        PlayerTickDataManager.PlayerData data = new PlayerTickDataManager.PlayerData();
+        for (int tick = 0; tick <= 5; tick++) {
+            data.pushFrame(new Vec3(tick * 0.28, 64, 0), tick * 50L);
+        }
+
+        Vec3 before = data.posNFramesAgo(5);
+        long elapsedMs = data.timeNFramesAgo(0) - data.timeNFramesAgo(5);
+        assertNotNull(before);
+        assertEquals(250L, elapsedMs);
+        assertEquals(5.6, MathUtil.horizontalDistance(before, new Vec3(1.4, 64, 0))
+                / (elapsedMs / 1000.0), 1e-6);
     }
 
     @Test

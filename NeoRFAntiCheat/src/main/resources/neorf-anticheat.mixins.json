@@ -3,7 +3,6 @@
   "minVersion": "0.8",
   "package": "com.neorf.anticheat.mixin",
   "mixins": [
-    "ServerGamePacketListenerMixin",
     "ConnectionMixin"
   ],
   "injectors": {

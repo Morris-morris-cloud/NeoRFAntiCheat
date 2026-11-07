@@ -83,6 +83,7 @@ public class PlayerTickDataManager {
         public long clipSince = -1;
         /** 最近位置历史帧（环形，旧在前） */
         private final Vec3[] history = new Vec3[HISTORY_FRAMES];
+        private final long[] historyTimes = new long[HISTORY_FRAMES];
         private int historyIndex = 0;
         private int historyCount = 0;
 
@@ -92,6 +93,7 @@ public class PlayerTickDataManager {
         /** 推入一帧位置 */
         public void pushFrame(Vec3 pos, long nowMs) {
             history[historyIndex] = pos;
+            historyTimes[historyIndex] = nowMs;
             historyIndex = (historyIndex + 1) % HISTORY_FRAMES;
             if (historyCount < HISTORY_FRAMES) historyCount++;
 
@@ -107,9 +109,15 @@ public class PlayerTickDataManager {
 
         /** 获取 N 帧前的位置（帧内位移用） */
         public Vec3 posNFramesAgo(int n) {
-            if (n >= historyCount) return history[0];
+            if (n < 0 || n >= historyCount) return null;
             int idx = (historyIndex - 1 - n + HISTORY_FRAMES) % HISTORY_FRAMES;
             return history[idx];
+        }
+
+        public long timeNFramesAgo(int n) {
+            if (n < 0 || n >= historyCount) return Long.MIN_VALUE;
+            int idx = (historyIndex - 1 - n + HISTORY_FRAMES) % HISTORY_FRAMES;
+            return historyTimes[idx];
         }
 
         /** 累计违规点，返回累计后的值 */

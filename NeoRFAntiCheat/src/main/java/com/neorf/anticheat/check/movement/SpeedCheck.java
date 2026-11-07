@@ -71,7 +71,8 @@ public class SpeedCheck extends Check {
             Vec3 before = data.posNFramesAgo(FRAMES);
             if (before == null || before.distanceToSqr(now) == 0) continue;
 
-            long dtMs = TimeUtil.tickMs() - data.lastPosTickMs;
+            long frameTimeMs = data.timeNFramesAgo(FRAMES);
+            long dtMs = frameTimeMs == Long.MIN_VALUE ? 0 : TimeUtil.tickMs() - frameTimeMs;
             if (dtMs <= 0) continue;
 
             // 水平位移

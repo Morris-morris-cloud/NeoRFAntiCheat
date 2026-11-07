@@ -18,7 +18,6 @@ package com.neorf.anticheat.check.combat;
 import com.neorf.anticheat.NeoRFAntiCheat;
 import com.neorf.anticheat.check.Check;
 import com.neorf.anticheat.config.AcConfig;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.server.level.ServerPlayer;
 
 import java.util.Map;
@@ -37,7 +36,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class KillAuraCheck extends Check {
 
-     private final Map<UUID, AttackRateWindow> attackWindows = new ConcurrentHashMap<>();
+    private final Map<UUID, AttackRateWindow> attackWindows = new ConcurrentHashMap<>();
     private final Map<UUID, Long> lastCpsSampleAt = new ConcurrentHashMap<>();
 
     public KillAuraCheck(NeoRFAntiCheat mod) {
@@ -80,6 +79,8 @@ public class KillAuraCheck extends Check {
         long lastSample = lastCpsSampleAt.getOrDefault(uuid, Long.MIN_VALUE);
         if (lastSample == Long.MIN_VALUE || now - lastSample >= windowMs) {
             lastCpsSampleAt.put(uuid, now);
+            NeoRFAntiCheat.LOGGER.warn("CPS 超限: {}，2 秒平均 {:.1f} CPS（限制 {}）",
+                    p.getGameProfile().name(), averageCps, cfg.getMaxCps());
             flagAtThreshold(p, 1, String.format("2 秒平均 %.1f CPS，限制为 %d CPS",
                 averageCps, cfg.getMaxCps()), cfg.getCpsViolationsToBan());
         }
